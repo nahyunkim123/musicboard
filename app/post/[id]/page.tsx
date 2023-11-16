@@ -8,7 +8,7 @@ import Comment from "@/components/comment"
 
 
 interface PostList{
-    id: string ;
+    id: number;
     title:string;
     content:string;
     userid: string;
@@ -37,7 +37,7 @@ export default function Detail(){
         fetchData()               
     },[params.id])
 
-    const deletePost =  async (e:string) =>{
+    const deletePost =  async (e:number) =>{
         try{
             const res= await fetch('/api/delete',{
                 method: 'POST',

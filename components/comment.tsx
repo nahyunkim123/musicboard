@@ -43,6 +43,15 @@ export default function Comment(props : CommentProps) {
             content: ''
         })
 
+        useEffect(()=>{
+                setFormData({
+                    parentid:id,
+                    userid:session?.user?.email ?? '',
+                    username:session?.user?.name ?? '',
+                    content: ''
+                })
+        },[session?.user.name, session?.user.email,id])
+
         const[totalComment, setTotalComment]= useState<CommentType[]>();
 
         
