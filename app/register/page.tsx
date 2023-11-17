@@ -66,18 +66,18 @@ export default function Register() {
         
         <div className="min-h-screen flex items-center justify-center">
             <div className="text-center w-4/5 md:w-2/4 xl:w-1/3 h-1/2 border py-8">
-            <form className="max-w-sm p-6 mx-auto space-y-6 border-gray-200" onSubmit={submitEvent}>
+            <form className="max-w-sm p-6 mx-auto space-y-6 border-black" onSubmit={submitEvent}>
             <div className="space-y-2 text-center">
                <p className="text-5xl font-bold">회원가입</p>
                <div className="mt-[60px]">
-                <div className="space-y-4">
-                        <input type="text" className="px-2 border w-full focus:outline-gray-400 h-[50px] mx-auto" placeholder="@example.com" name="email" required onChange={changeEvent}/>
+                <div className="space-y-4 mt-8">
+                        <input type="text" className="px-2 border w-full focus:outline-gray-400 h-[50px] mx-auto" placeholder="music@example.com" name="email" required onChange={changeEvent}/>
                 </div>
-                    <input type="password" className="px-2 border w-full focus:outline-gray-400 h-[50px] mx-auto" placeholder="비밀번호를 입력하세요" name="password" required onChange={changeEvent}/>
-                    <input type="password" className="px-2 border w-full focus:outline-gray-400 h-[50px] mx-auto" placeholder="비밀번호 확인" name="password" required onChange={changeEvent}/>
-                    <input type="text" className="px-2 border w-full focus:outline-gray-400 h-[50px] mx-auto" placeholder=" 닉네임을 입력하세요" name="name" required onChange={changeEvent}/>
+                    <input type="password" className=" mt-3 px-2 border w-full focus:outline-gray-400 h-[50px] mx-auto" placeholder="비밀번호를 입력하세요" name="password" required onChange={changeEvent}/>
+                    <input type="password" className=" mt-3 px-2 border w-full focus:outline-gray-400 h-[50px] mx-auto" placeholder="비밀번호 확인" name="password" required onChange={changeEvent}/>
+                    <input type="text" className="  mt-3 px-2 border w-full focus:outline-gray-400 h-[50px] mx-auto" placeholder=" 닉네임을 입력하세요" name="name" required onChange={changeEvent}/>
                     <p className="text-[#F94C10]">{message}</p>
-                    <button className="w-full h-[50px] bg-[#000] text-white" type="submit">가입하기</button>
+                    <button className="w-full h-[50px] mt-8 bg-[#000] text-white" type="submit">가입하기</button>
                     </div>
                 </div>
             </form>

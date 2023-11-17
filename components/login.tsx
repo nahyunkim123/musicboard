@@ -33,13 +33,14 @@ export default async function LoginComponent() {
 
         {
                session && session.user.name ? 
-                    <div className="flex justify-center">
+                    <div className=" flex justify-between">
                         <p className="w-full">{session && session.user?.name}님</p>
                         <LogoutComponent/>
                     </div>
                 :
                  <>
-                    <button className="p-1"><Link href="/login">로그인</Link></button>
+                    <button className="px-3"><Link href="/login">로그인</Link></button>
+                    <button className="px-3"><Link href="/register">회원가입</Link></button>
                 </>   
             
             }

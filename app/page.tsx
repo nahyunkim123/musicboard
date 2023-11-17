@@ -39,25 +39,20 @@ export default async function Home() {
     <>
         <div className="mx-auto max-w-7xl p-6">
                 <div className="flex justify-around items-center mb-6 relative">
-                    <h1 className="text-[80px] font-semibold">
-                        게시판
+                    <h1 className="text-[50px] font-semibold mt-5">
+                        전체
                     </h1>
 
                     {sessions && 
 
-                      <Link href="/write" className="bg-[#3C486B] absolute -bottom-[15px] transition-all text-white px-4 py-2 rounded-xl shadow-md right-3 hover:bg-[#3F497F]">글쓰기</Link>
+                      <Link href="/write" className="bg-[#000] absolute -bottom-[15px] transition-all mt-6 text-white px-4 py-2  right-3">글쓰기</Link>
                     }
 
                 </div>
 
             </div>
-            <ul className="w-4/5 mx-auto flex justify-between border rounded-xl">
-                <li className="px-6 py-3 text-center">번호</li>
-                <li className="px-6 py-3 text-center">제목</li>
-                <li className="px-6 py-3 text-center">작성자</li>
-                <li className="px-6 py-3 text-center">작성일</li>
-            </ul>
-            <div className="w-4/5 p-6 mx-auto mt-9 border rounded-md">
+            
+            <div className="w-4/5 p-6 gap-x-2 mx-auto flex mt-3">
             {
                 
                 results && results.map((e,i)=>{
@@ -67,11 +62,11 @@ export default async function Home() {
                     const day = date.getDate().toString().padStart(2,'0')
                     const formatDate = `${year}-${month}-${day}`
                     return(
-                        <ul className="mb-5 flex justify-between border-b items-center transition-all  hover:bg-slate-200 hover:rounded-md" key={i}>
-                            <li className="rounded-md border px-3 py-1 bg-[#3C486B] text-white basis-1/14 text-center">{results.length-i}</li>
+                        <ul className="mb-5 w-full md:basis-1/2 lg:basis-[33.3%] flex-wrap justify-between border rounded-lg items-center transition-all  hover:bg-slate-200 hover:rounded-md" key={i}>
+                            <li className="rounded-md border px-3 py-1 bg-[#000] text-white basis-1/14 text-center">{results.length-i}</li>
                             <li className="px-6 py-3 basis-8/14 text-center"><Link href={`/post/${e.id}`}>{e.title}</Link></li>
                             <li className="px-6 py-3 basis-2/14 text-center">{e.username}</li>
-                            <li className="px-6 py-3 basis-3/14 text-center">{formatDate}</li>
+                            {/* <li className="px-6 py-3 basis-3/14 text-center">{formatDate}</li> */}
                         </ul>
                     )
                 })
