@@ -1,50 +1,19 @@
-
-import { getServerSession } from "next-auth";
-import LogoutComponent from './logout';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import Link from "next/dist/client/link";
-
-interface userInfo {
-    user:{
-      name: string;
-      email?:string;
-      image?: string;
-      level?: number;
-  
-    }
-  }
+'use client'
 
 
-export default async function LoginComponent() {
 
-    let session = await getServerSession(authOptions) as userInfo
-    
-    
+export default function LoginComponent() {
+
     const redirectTo = () =>{
         sessionStorage.setItem('preUrl', window.location.href);
-        window.location.href= "/login"
+        window.location.href="/login";
     }
 
    
     return(
-        <>
+        <>  
    
-            
-
-        {
-               session && session.user.name ? 
-                    <div className=" flex justify-between">
-                        <p className="w-full">{session && session.user?.name}님</p>
-                        <LogoutComponent/>
-                    </div>
-                :
-                 <>
-                    <button className="px-3"><Link href="/login">로그인</Link></button>
-                    <button className="px-3"><Link href="/register">회원가입</Link></button>
-                </>   
-            
-            }
-
+            <button onClick={redirectTo}>로그인</button>
          
         </>
     )
