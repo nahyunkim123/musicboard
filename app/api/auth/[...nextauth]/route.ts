@@ -15,6 +15,7 @@ interface User{
     name:string;
     email:string;
     level:string;
+  
 }
 
 interface CustomSession extends Session{

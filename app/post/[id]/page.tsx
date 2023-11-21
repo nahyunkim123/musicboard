@@ -12,6 +12,7 @@ interface userInfo{
         email?:string;
         image?:string;
         level?:number;
+        nickname?:string
     }
 }
 interface propsType{
