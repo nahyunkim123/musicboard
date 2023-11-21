@@ -8,6 +8,9 @@ interface formType{
     email:string;
     password:string;
     name: string;
+    nickname?:string;
+    birthday?:string;
+    gender?:string;
 
 }
 
@@ -17,7 +20,7 @@ interface formType{
         
         if(req.method === 'POST'){
 
-            const {email, password, name}:formType = JSON.parse
+            const {email, password, name, nickname, birthday, gender}:formType = JSON.parse
             (await req.text())
             if(!email || !password || !name){
                 return NextResponse.json({message: "데이터가 부족합니다"})
@@ -30,7 +33,7 @@ interface formType{
                 return NextResponse.json({message: "해당 이메일이 존재합니다"})
             }else{
                 
-                 await db.query('insert into musicboard.member (email, password, name) values(?,?,?)',[email, hash, name])
+                 await db.query('insert into musicboard.member (email, password, name, nickname, gender) values(?,?,?,?,?)',[email, hash, name, nickname, gender])
                 
                  const data ={
                     email:email,

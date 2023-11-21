@@ -1,114 +1,106 @@
-'use client'
-import { useParams } from "next/navigation"
-import React, { useEffect, useState } from "react"
-import Loading from "@/components/loading"
-import Link from "next/link"
-import { useCustomSession } from "@/app/sessions"
-import Comment from "@/components/comment"
+import db from '@/db'
+import {RowDataPacket} from 'mysql2'
+import { getServerSession } from 'next-auth'
+import Link from 'next/link'
+import Comment from '@/components/comment'
+import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+import EditDelete from './editDelete'
+
+interface userInfo{
+    user:{
+        name:string;
+        email?:string;
+        image?:string;
+        level?:number;
+    }
+}
+interface propsType{
+    results :{
+        id:number;
+        userid:string;
+        title?:string;
+        content?:string;
+        username?:string;
+        count?:number;
+        data?:string;
 
 
-interface PostList{
-    id: number;
-    title:string;
-    content:string;
-    userid: string;
-    username: string;
-    date:string;
-    count: number;
-
+    }
 }
 
-export default function Detail(){
-    const params = useParams()
-    const [post, setPost] = useState<PostList[]>([])
-    const [isLoading, setIsLoading] = useState<boolean>(true)
 
-    const {data : session} = useCustomSession();
-    
-
-    useEffect(()=>{
-        const fetchData = async() =>{
-
-            const res = await fetch(`/api/post/${params.id}`)
-            const data = await res.json()
-            setPost(data.data)
-            setIsLoading(false)
-        }       
-        fetchData()               
-    },[params.id])
-
-    const deletePost =  async (e:number) =>{
-        try{
-            const res= await fetch('/api/delete',{
-                method: 'POST',
-                headers:{
-                    'Content-Type' : 'application/json'
-                },
-                body:JSON.stringify({id: e})
-            })
-            if(res.ok){
-                const data = await res.json()
-                alert('정상적으로 삭제되었습니다')
-                window.location.href ='/'
-            }else{
-                const errorData = await res.json()
-                console.log(errorData.error);
-            }
-
-        }catch(error){
-            console.log(error);
-        }
+async function GetIp(){
+    const res = await fetch('http://localhost:3000/api/get-ip');
+    const data = res.json();
+    if(!res.ok){
+        alert("에러가 발생하였습니다")
+        return;
     }
+    return data
+}
 
+
+
+export default async function Detail({
+    params
+}:{
+    params ?: {id?:number}
+}){
+
+    const getIp = await GetIp();
+    const userIp = getIp.data
+    const postId = params?.id !== undefined ? params.id : 1;
+
+       
+    const [results]= await db.query<RowDataPacket[]>('select * from musicboard.board1 where id = ? ',[postId]);
+    const post = results && results[0]
+
+    let session = await getServerSession(authOptions) as userInfo
+    const [countResult] = await db.query<RowDataPacket[]>('select count (*) as cnt from musicboard.view_log where postid = ? and ip_address = ?',[postId,userIp])
+    const totalCnt = countResult[0].cnt;
+    console.log(totalCnt+"개")
+
+    if(results.length > 0){
+        
+        if(totalCnt === 0){
+            await db.query<RowDataPacket[]>('update musicboard.board1 set count = count + 1 where id = ? ',[postId])
+        }
+
+
+        await db.query<RowDataPacket[]>('insert into musicboard.view_log (postid, ip_address, view_date) select ?, ?, NOW() where not exists (select 1 from musicboard.view_log where postid = ? and ip_address = ? and view_date > now() - interval 24 hour)', [postId, userIp, postId, userIp])
     
-
+        
+    }
 
     return(
     <>
-        {
-            isLoading && <Loading/>
-        }
+     
         <div className="w-full mt-8">
          {
-            post.length > 0 &&
-             
-                <div className="w-4/5 p-7 border rounded-xl mx-auto">
-                    <div className="w-full flex justify-between items-end border-b pb-3">
+            results.length > 0 &&
+            
+            <div className="w-4/5 p-7 border rounded-xl mx-auto">
+                    <div className="w-full flex justify-between items-end  pb-3">
 
-                    <p className="text-3xl">{post && post[0]?.title}</p>
-                    <p className="text-md">{post && post[0]?.username}</p>
-                    <p className="text-md">조회수 : {post && post[0]?.count}</p>
+                    <p className="text-md">작성자 {post?.username}</p>
+                    <p className="text-md">조회수 {post?.count}</p>
                     
                     </div>
-                    <p className="text-md mt-6 pb-[20px]">{post && post[0]?.content}</p>
+                    <p className="text-3xl border-b">{post?.title}</p>
+                    <p className="text-md mt-6 pb-[20px]">{post?.content}</p>
 
                     <div className="mt-3">
 
                         
                         {
-                            session ? <Comment id={post && post[0]?.id}/> 
+                            session ? <Comment id={post?.id}/> 
                             : <><p className="block border p-4 text-center my-5 rounded-md"><Link href="/login">댓글을 작성하려면 로그인해주세요</Link></p>
                             </>
                         }
+                    <EditDelete results={post as propsType['results']}/>
                     </div>
 
-
-
-                    {
-                        session && session.user && (
-                            (post && post[0] && session.user.email === post[0].userid)
-                        ) && 
-                        
-                        <>
-                        
-                            <div className="w-full mt-7 flex justify-between items-end pb-3">
-                                <button className="py-2 px-3 border rounded-md"><Link href={`/edit/${post[0]?.id}`}>수정</Link></button>
-                                <button className="py-2 px-3 border rounded-md bg-red-400 text-white" onClick={()=>deletePost(post[0]?.id)}>삭제</button>
-                            </div>
-                        
-                        </>
-                    }
-                </div>
+                 </div>
             }
 
 

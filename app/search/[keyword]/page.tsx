@@ -26,7 +26,7 @@ export default async function SearchResult({
                     results && results.length > 0 && results.map((e,i)=>{
                         return(
                             <div className='flex' key={i}>
-                                <Link href={'/post/e.id'}>
+                                <Link href={`/post/${e.id}`}>
                                     <p>{e.title}</p> 
                                 </Link>
                                 <p>{e.content}</p>

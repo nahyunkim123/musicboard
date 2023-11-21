@@ -59,7 +59,7 @@ export const GET = async(
 
             const parentid = req.nextUrl.searchParams.get("id");
            
-            const[results] = await db.query<RowDataPacket[]>('select * from musicboard.comment order by date DESC where parentid = ?',[parentid])
+            const[results] = await db.query<RowDataPacket[]>('select * from musicboard.comment where parentid = ? order by date DESC',[parentid])
 
 
             return NextResponse.json({message:"성공", result:results}) 

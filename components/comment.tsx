@@ -52,6 +52,7 @@ export default function Comment(props : CommentProps) {
                 })
         },[session?.user.name, session?.user.email,id])
 
+
         const[totalComment, setTotalComment]= useState<CommentType[]>();
 
         
@@ -62,7 +63,7 @@ export default function Comment(props : CommentProps) {
 
         const params = useParams();
     
-
+     
 
         useEffect(()=>{
             const fetchData = async () =>{
@@ -104,6 +105,29 @@ export default function Comment(props : CommentProps) {
             }
             
         }
+
+        const deleteComment =  async (e:number) =>{
+            try{
+                const res= await fetch('/api/deletecomment',{
+                    method: 'POST',
+                    headers:{
+                        'Content-Type' : 'application/json'
+                    },
+                    body:JSON.stringify({id: e})
+                })
+                if(res.ok){
+                    const data = await res.json()
+                    alert('정상적으로 삭제되었습니다')
+                    window.location.href ='/'
+                }else{
+                    const errorData = await res.json()
+                    console.log(errorData.error);
+                }
+    
+            }catch(error){
+                console.log(error);
+            }
+        }
     
 
         return(
@@ -133,14 +157,21 @@ export default function Comment(props : CommentProps) {
                                 <div className="flex gap-x-3">
                                     <p>{e.username}</p>
                                     <p>{e.content}</p>
+                                    <button className="border w-[40px] rounded-md">삭제</button>
+                                    <button className="border w-[40px] rounded-md">수정</button>
                                 </div>
                                 <p className="text-sm text-[gray]">{formatDate}</p>
                             </div>
                         )
                     })
                         }
-                        <input name="content" type="text" className="border rounded-md" placeholder='댓글달기' onChange={commentValue}/>
-                        <button onClick={()=>cmtSubmit()} className="bg-black text-white rounded-md">올리기</button>
+                        <div className="w-full flex justify-between mt-2">
+                            <input name="content" type="text" className="border rounded-md basis-5/6" placeholder='댓글달기' onChange={commentValue}/>
+                            <div className="basis-1/6">
+                                <button onClick={()=>cmtSubmit()} className="bg-black text-white rounded-md w-[60px]">올리기</button>
+                                
+                            </div>
+                        </div>
                     </> 
             }
             </>
