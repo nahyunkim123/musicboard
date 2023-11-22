@@ -27,14 +27,13 @@ export default function Write(){
 
         }
     )
-        console.log(formData);
+       
     const changeEvent = (e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{
         setFormData({...formData,[e.target.name] : e.target.value})
        
     }
 
     const [searchData, setSearchData]= useState<string>('')
-
     const fetchData = async () => {
         try {
           const response = await axios.get(
@@ -76,9 +75,9 @@ export default function Write(){
         }
     }
 
-    // if(!session){
-    //     return <p>로그인 후 이용해주세요</p>
-    // }
+    if(!session?.user){
+        return <p>로그인 후 이용해주세요</p>
+    }
 
 
     return(
@@ -97,6 +96,7 @@ export default function Write(){
                         <input className='py-2 basis-5/6 border focus:outline-[#999]' type="text" name="title" defaultValue={formData.title}  onChange={changeEvent}/>
                     </div>
                     <input type="text" className="bg-[#000] placeholder:text-white text-white w-full h-[60px] mt-4 px-2" placeholder={`${session && session.user.name}님의 플레이리스트를 추가해보세요!`} value={searchData} onChange={(e)=>{setSearchData(e.target.value)}}/>
+                 
                     <textarea placeholder='내용을 입력하세요' className='border p-3 w-full h-[600px] mt-4 focus:outline-[#999]' name="content" defaultValue={formData.content}  onChange={changeEvent}/>
                     <div className="flex justify-between">
                     <button className="bg-[#FA7070] transition-all text-white px-4 py-2 shadow-md focus:outline-none">

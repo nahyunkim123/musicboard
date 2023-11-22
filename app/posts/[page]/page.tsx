@@ -4,7 +4,8 @@ import {RowDataPacket} from 'mysql2/promise'
 import Link from 'next/link'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
-import Search from '@/components/search'
+import PopularComponent from '@/components/popular'
+
 
 
 
@@ -21,8 +22,6 @@ interface userInfo {
 export default async function PostsList({
     params,
 } : {params?: {page ?: number}}) {
-
-    console.log(params)
 
         const currentPage = params?.page !== undefined ? params.page :1;
         const perPage = 16
@@ -51,6 +50,8 @@ export default async function PostsList({
   return (
     <>
         <div className="mx-auto max-w-7xl p-6">
+
+            <PopularComponent/>
                 <div className="flex justify-around items-center mb-6 relative">
                     <h1 className="text-[50px] font-semibold mt-5">
                          전체
@@ -105,7 +106,7 @@ export default async function PostsList({
                     nextStart <= lastPage && <Link className='bg-white border px-2 py-1 text-sm rounded' href={`/posts/${nextStart}`}>다음</Link>
                 }
             </div>
-            <Search/>
+          
     </>
   )
 }

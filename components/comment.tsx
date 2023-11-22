@@ -3,6 +3,8 @@
 import { useCustomSession } from "@/app/sessions"
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import Editcomment from "./editcomment";
+import EditComment from "./editcomment";
 
 
 
@@ -42,6 +44,7 @@ export default function Comment(props : CommentProps) {
             username:session?.user?.name ?? '',
             content: ''
         })
+        const [isActive, setIsActive] = useState<boolean>(false)
 
         useEffect(()=>{
                 setFormData({
@@ -106,6 +109,8 @@ export default function Comment(props : CommentProps) {
             
         }
 
+        
+
         const deleteComment =  async (e:number) =>{
             try{
                 const res= await fetch('/api/deletecomment',{
@@ -118,7 +123,7 @@ export default function Comment(props : CommentProps) {
                 if(res.ok){
                     const data = await res.json()
                     alert('정상적으로 삭제되었습니다')
-                    window.location.href ='/'
+                    location.reload();
                 }else{
                     const errorData = await res.json()
                     console.log(errorData.error);
@@ -129,6 +134,9 @@ export default function Comment(props : CommentProps) {
             }
         }
     
+     
+
+
 
         return(
 
@@ -155,10 +163,20 @@ export default function Comment(props : CommentProps) {
                             <div key={i} className="mt-2">
                                
                                 <div className="flex gap-x-3">
-                                    <p>{e.username}</p>
-                                    <p>{e.content}</p>
-                                    <button className="border w-[40px] rounded-md">삭제</button>
-                                    <button className="border w-[40px] rounded-md">수정</button>
+                                    {/* {
+                                    isActive ?
+                                  
+                                        <EditComment setIsActive={setIsActive} content={e.content}/>
+                                    
+                                    : */}
+                                    <div className="flex gap-x-4">
+                                        <p>{e.username}</p>
+                                        <p>{e.content}</p>
+                                        {/* <button className="border w-[40px] rounded-md" onClick={()=>{setIsActive(true)}}>수정</button>
+                                        <button onClick={()=>deleteComment(e.id)} className="border w-[40px] rounded-md">삭제</button> */}
+                                    </div>
+                                    {/* } */}
+                                    
                                 </div>
                                 <p className="text-sm text-[gray]">{formatDate}</p>
                             </div>

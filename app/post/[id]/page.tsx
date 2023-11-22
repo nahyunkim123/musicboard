@@ -6,6 +6,8 @@ import Comment from '@/components/comment'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import EditDelete from './editDelete'
 
+
+
 interface userInfo{
     user:{
         name:string;
@@ -32,6 +34,7 @@ interface propsType{
 
 async function GetIp(){
     const res = await fetch('http://localhost:3000/api/get-ip');
+    // const res = await fetch('https://musicboard-12.vercel.app/api/get-ip');
     const data = res.json();
     if(!res.ok){
         alert("에러가 발생하였습니다")
@@ -83,11 +86,14 @@ export default async function Detail({
             <div className="w-4/5 p-7 border rounded-xl mx-auto">
                     <div className="w-full flex justify-between items-end  pb-3">
 
-                    <p className="text-md">작성자 {post?.username}</p>
-                    <p className="text-md">조회수 {post?.count}</p>
+                        <p className="text-md">{post?.username}</p>
+                        <p className="text-md">조회수 {post?.count}</p>
                     
                     </div>
-                    <p className="text-3xl border-b">{post?.title}</p>
+                   
+                        <p className="text-3xl border-b">{post?.title}</p>    
+                        
+                    
                     <p className="text-md mt-6 pb-[20px]">{post?.content}</p>
 
                     <div className="mt-3">

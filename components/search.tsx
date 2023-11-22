@@ -1,6 +1,8 @@
 'use client'
 
 import { useRef, useState } from "react"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons"
 
 export default function Search() {
 
@@ -25,12 +27,17 @@ export default function Search() {
             window.location.href=`/search/${keyword}`
         }
     }
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            searchSubmit();
+        }
+    };
 
     return(
         <>
-            <div className="flex justify-center gap-x-5">
-                <input type="text" ref={inputRef} placeholder="검색어를 입력해주세요" onChange={searchValue}  className="border p-2 rounded-2xl"/>
-                <button onClick={searchSubmit} className="border bg-black text-white p-2 rounded-2xl">검색</button>
+            <div className="relative flex items-center">
+                <input type="text" ref={inputRef} placeholder="검색어를 입력해주세요" onChange={searchValue} onKeyDown={handleKeyDown}  className="border p-2 rounded-2xl"/>
+                <button onClick={searchSubmit} className="border bg-black text-white px-3 py-1 right-1 rounded-full absolute "><FontAwesomeIcon icon={faMagnifyingGlass}/></button>
             </div>
         </>
     )
