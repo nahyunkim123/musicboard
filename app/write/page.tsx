@@ -2,7 +2,8 @@
 import Link from 'next/link';
 import React,{ useEffect, useState } from 'react';
 import { useCustomSession } from '../sessions';
-import axios from "axios";
+import axios from 'axios';
+
 
 interface formType{
     userid:string;
@@ -43,11 +44,10 @@ export default function Write(){
         } catch (error) {
           console.log(error);
         }
+        fetchData()
       };
       
-      useEffect(() => {
-        fetchData();
-      }, []);
+     
 
 
 
