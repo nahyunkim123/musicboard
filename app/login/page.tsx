@@ -1,7 +1,7 @@
 'use client'
 import { signIn } from "next-auth/react";
 import { useCustomSession } from "../sessions";
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 
 
 export default function Login() {
@@ -13,13 +13,11 @@ export default function Login() {
     const [preUrl, setPreUrl] = useState<string>('')
 
     useEffect(()=>{
-        console.log(typeof window) 
         if(typeof window !== 'undefined'){
             const prevPage = sessionStorage.getItem('preUrl') || '/';
-            console.log(prevPage);
             setPreUrl(prevPage)
         }
-    })
+    },[])
 
 
     const SignIn = () => {

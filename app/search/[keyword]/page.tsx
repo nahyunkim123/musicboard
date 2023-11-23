@@ -18,8 +18,8 @@ export default async function SearchResult({
     return(
         <>
             
-                <div className='max-w-7xl mx-auto px-4 mt-[60px]'>
-                    <div className='flex items-end'> <p className='text-xl px-1 font-bold text-[#F05941]'>'{DecodeKeyword}'</p>(으)로 검색한 결과, 총 <p className='text-xl px-1 text-[#F05941]'>{results.length}</p>개의 게시물이 있습니다</div>
+                <div className="max-w-7xl mx-auto px-4 mt-[60px]">
+                    <div className="flex items-end"> <p className="text-xl px-1 font-bold text-[#F05941]">{DecodeKeyword}</p>(으)로 검색한 결과, 총 <p className="text-xl px-1 text-[#F05941]">{results.length}</p>개의 게시물이 있습니다</div>
                         {
                         results.length === 0 && 
                         <p>검색 결과가 없습니다</p> 
@@ -33,13 +33,12 @@ export default async function SearchResult({
                                 const formatDate = `${year}-${month}-${day}`
                                
                                 return(
-                                    <div className='flex mt-5 items-end gap-x-4 border-b py-4' key={i}>
+                                    <div className="flex mt-5 items-end gap-x-4 border-b py-4" key={i}>
                                         <Link href={`/post/${e.id}`}>
-                                            <p className='font-bold'>{e.title}</p> 
+                                            <p className="font-bold">{e.title}</p> 
                                         </Link>
-                                        {/* <p>{e.content}</p> */}
                                         <p>{e.username}</p>
-                                        <p className='text-sm text-[#777]'>{formatDate}</p>
+                                        <p className="text-sm text-[#777]">{formatDate}</p>
                                     </div>
                                 )
                             })
