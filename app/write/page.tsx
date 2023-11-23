@@ -95,8 +95,10 @@ export default function Write(){
                         <h4 className='basis-1/6 text-center'>제목</h4>
                         <input className='py-2 basis-5/6 border focus:outline-[#999]' type="text" name="title" defaultValue={formData.title}  onChange={changeEvent}/>
                     </div>
-                    <input type="text" className="bg-[#000] placeholder:text-white text-white w-full h-[60px] mt-4 px-2" placeholder={`${session && session.user.name}님의 플레이리스트를 추가해보세요!`} value={searchData} onChange={(e)=>{setSearchData(e.target.value)}}/>
-                 
+                    <div className='flex items-center gap-x-3'>
+                        <input type="text" className="bg-[#000] placeholder:text-white text-white w-full h-[60px] mt-4 px-2" placeholder={`${session && session.user.name}님의 플레이리스트를 추가해보세요!`} value={searchData} onChange={(e)=>{setSearchData(e.target.value)}}/>
+                        <button className='w-[60px] h-[60px] bg-[#000] text-white'>+</button>
+                    </div>
                     <textarea placeholder='내용을 입력하세요' className='border p-3 w-full h-[600px] mt-4 focus:outline-[#999]' name="content" defaultValue={formData.content}  onChange={changeEvent}/>
                     <div className="flex justify-between">
                     <button className="bg-[#FA7070] transition-all text-white px-4 py-2 shadow-md focus:outline-none">

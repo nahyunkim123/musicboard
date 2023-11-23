@@ -28,9 +28,11 @@ export default async function nav() {
     <>
         <div className="flex justify-between h-[60px] px-4 md:px-8 items-center">
             <Link href="/"><Image className="w-[180px] object-contain h-[40px]" src={Logo} width={200} height={30} alt="logo"/></Link>
-            <div className="w-[400px]">
-                <div className=" flex gap-x-3 justify-between items-center">
-                <Search/>
+            <div className="basis-1/3">
+                <div className=" flex gap-x-3 justify-center items-center">
+                    <div className="hidden md:block">
+                        <Search/>
+                    </div>
                 {
                 session && session.user.name ? 
                         <>

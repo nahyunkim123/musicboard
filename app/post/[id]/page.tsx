@@ -7,7 +7,6 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import EditDelete from './editDelete'
 
 
-
 interface userInfo{
     user:{
         name:string;

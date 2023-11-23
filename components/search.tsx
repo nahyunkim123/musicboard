@@ -36,7 +36,7 @@ export default function Search() {
     return(
         <>
             <div className="relative flex items-center">
-                <input type="text" ref={inputRef} placeholder="검색어를 입력해주세요" onChange={searchValue} onKeyDown={handleKeyDown}  className="border p-2 rounded-2xl"/>
+                <input type="text" ref={inputRef} placeholder="검색어를 입력해주세요" onChange={searchValue} onKeyDown={handleKeyDown}  className="border px-6 py-2 rounded-2xl"/>
                 <button onClick={searchSubmit} className="border bg-black text-white px-3 py-1 right-1 rounded-full absolute "><FontAwesomeIcon icon={faMagnifyingGlass}/></button>
             </div>
         </>
