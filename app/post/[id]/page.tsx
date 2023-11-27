@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Comment from '@/components/comment'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import EditDelete from './editDelete'
+import Player from '@/components/player'
 
 
 interface userInfo{
@@ -83,6 +84,7 @@ export default async function Detail({
             results.length > 0 &&
             
             <div className="w-4/5 p-7 border rounded-xl mx-auto">
+               
                     <div className="w-full flex justify-between items-end  pb-3">
 
                         <p className="text-md">{post?.username}</p>
@@ -90,9 +92,8 @@ export default async function Detail({
                     
                     </div>
                    
-                        <p className="text-3xl border-b">{post?.title}</p>    
-                        
-                    
+                    <p className="text-3xl border-b">{post?.title}</p> 
+                    <Player/>   
                     <p className="text-md mt-6 pb-[20px]">{post?.content}</p>
 
                     <div className="mt-3">
