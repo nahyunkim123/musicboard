@@ -5,23 +5,26 @@ import Link from 'next/link'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import PopularComponent from '@/components/popular'
-
-
+import Thumbnail from '@/components/thumbnail'
 
 
 interface userInfo {
   user:{
     name: string;
     email?:string;
-    image?: string;
     level?: number;
 
   }
 }
 
+interface PropType {
+    params?: {
+        page:number};
+  }
+
 export default async function PostsList({
-    params,
-} : {params?: {page ?: number}}) {
+    params
+} : PropType) {
 
         const currentPage = params?.page !== undefined ? params.page :1;
         const perPage = 16
@@ -32,7 +35,6 @@ export default async function PostsList({
         const [countResult] = await db.query<RowDataPacket[]>
         ('select count(*) as cnt from musicboard.board1')
         const totalCnt = countResult[0].cnt
-        
 
         const lastPage = Math.ceil(totalCnt / perPage);
         const totalPageCnt = 5;
@@ -40,20 +42,17 @@ export default async function PostsList({
         const endPage = Math.min(lastPage, startPage + totalPageCnt - 1);
         let prevStart = Math.floor((currentPage -1)/5) *5 -4;
         let nextStart = Math.ceil((currentPage) /5)*5 +1;
-        
-
         let sessions = await getServerSession(authOptions) as userInfo;
-       console.log(sessions);
+    
 
         
 
   return (
     <>
         <div className="mx-auto max-w-7xl p-6">
-
             <PopularComponent/>
                 <div className="flex justify-around items-center mb-6 relative">
-                    <h1 className="text-[50px] font-semibold mt-5">
+                    <h1 className="text-[40px] font-semibold mt-5">
                          전체
                     </h1>
 
@@ -66,23 +65,20 @@ export default async function PostsList({
 
             </div>
             
-            <div className="w-4/5 p-6 mx-auto gap-x-2 flex-wrap flex mt-3 justify-start">
-            {
-                
+            <div className="w-4/5 p-6 mx-auto gap-x-5 flex-wrap flex mt-3 justify-start">
+            {  
                 results && results.map((e,i)=>{
-                    const date = new Date(e.date);
-                    const year=date.getFullYear();
-                    const month = (date.getMonth()+1).toString().padStart(2,'0');
-                    const day = date.getDate().toString().padStart(2,'0')
-                    const formatDate = `${year}-${month}-${day}`
-                    const number = totalCnt - ((currentPage - 1)* perPage +i)
                     return(
-                        <ul className="mb-5 basis-full md:basis-[49%] lg:basis-[24%] border rounded-lg items-center hover:bg-slate-200" key={i}>
-                            <li className="rounded-md border px-3 py-1 bg-[#000] text-white basis-1/14 text-center">{number}</li>
-                            <li className="px-6 py-3 basis-8/14 text-center"><Link href={`/post/${e.id}`}>{e.title}</Link></li>
-                            <li className="px-6 py-3 basis-2/14 text-center">{e.username}</li>
-                            {/* <li className="px-6 py-3 basis-3/14 text-center">{formatDate}</li> */}
-                        </ul>
+                        <div className="mt-[15px] transition border-b py-2 border-[#888] ease-in-out mb-5 basis-full md:basis-[47%] lg:basis-[22%] items-center hover:scale-105 hover:-translate-y-1" key={i}>
+                            <Link href={`/post/${e.id}`}>
+                                    {e.url && (
+                                        <Thumbnail videoId={e.url} />
+                                    )}
+                                    <p className="py-3 text-xl font-bold">{e.title}</p>
+                                    <p>{e.username}님의 플리</p>
+                                   
+                            </Link>
+                        </div>
                     )
                 })
             }
@@ -90,14 +86,14 @@ export default async function PostsList({
             </div>
             <div className="flex justify-center gap-x-5 mb-5">
                 {
-                    currentPage > 5 && <Link href={`/posts/${prevStart}`} className='bg-white border px-2 py-1 text-sm rounded'>이전</Link>
+                    currentPage > 5 && <Link href={`/posts/${prevStart}`} className='border px-2 py-1 text-sm rounded'>이전</Link>
                 }
                 {
                     Array(endPage - startPage + 1).fill(null).map((_,i)=>{
                         const pageNumber = i + startPage
                         return(
                             <>
-                                <Link href={`/posts/${pageNumber}`} className='bg-white border px-2 py-1 text-sm rounded'>{pageNumber}</Link>
+                                <Link href={`/posts/${pageNumber}`} className='border px-2 py-1 text-sm'>{pageNumber}</Link>
                             </>
                         )
                     })

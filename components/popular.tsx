@@ -9,19 +9,17 @@ export default async function PopularComponent() {
 
     return(
         <>
-            <h1 className="text-[50px] text-center font-semibold mt-5">
+            <h1 className="text-[40px] text-center font-semibold mt-5">
             🔥 인기
             </h1>
-            <div className="w-4/5 p-6 mx-auto gap-x-2 flex-wrap flex mt-3 justify-start">
+            <div className="w-4/5 p-6 mx-auto gap-x-5 flex-wrap flex mt-3 justify-start">
              {
                     results && results.length > 0 && results.map((e,i)=>{
                         return(
-                            <ul className="mb-5 basis-full md:basis-[49%] lg:basis-[24%] border rounded-lg items-center hover:bg-slate-200" key={i}>
-                          
-                            <li className="px-6 py-3 basis-8/14 text-center"><Link href={`/post/${e.id}`}>{e.title}</Link></li>
-                            <li className="px-6 py-3 basis-2/14 text-center">{e.username}</li>
-                            {/* <li className="px-6 py-3 basis-3/14 text-center">{formatDate}</li> */}
-                        </ul>
+                            <ul className="mb-5 basis-full border-b border-[#888] md:basis-[45%] lg:basis-[22%] transition ease-in-out items-center hover:scale-105 hover:-translate-y-1" key={i}>
+                                <li className="px-6 py-3 text-xl"><Link href={`/post/${e.id}`}>{e.title}</Link></li>
+                                <li className="px-6 py-3">{e.username}</li>
+                            </ul>
                         )
                     })
                 }

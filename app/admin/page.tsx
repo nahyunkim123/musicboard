@@ -16,8 +16,7 @@ interface userInfo {
 
 export default async function Admin() {
   
-    let sessions = await getServerSession(authOptions) as userInfo;
-    console.log(sessions);
+    const sessions = await getServerSession(authOptions) as userInfo;
     if(!sessions && sessions || sessions?.user.level !== 10){
         return(
             <p>관리자만 접속 가능한 페이지입니다</p>

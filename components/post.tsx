@@ -57,15 +57,13 @@ export default function Post(){
     return(
         <>
 
-        <div className="mx-auto max-w-7xl p-6">
+            <div className="mx-auto max-w-7xl p-6">
                 <div className="flex justify-around items-center mb-6 relative">
                     <h1 className="text-[80px] font-semibold">
                         게시판
                     </h1>
                     <Link href="/write" className="bg-[#3C486B] absolute -bottom-[15px] transition-all text-white px-4 py-2 rounded-xl shadow-md right-3 hover:bg-[#3F497F]">글쓰기</Link>
-
                 </div>
-
             </div>
             <ul className="w-4/5 mx-auto flex justify-between border rounded-xl">
                 <li className="px-6 py-3 text-center">번호</li>
@@ -92,30 +90,23 @@ export default function Post(){
                     )
                 })
             }
-
             </div>
+            <div className="flex mb-6 gap-x-5 justify-center mx-auto mt-6 items-center">
+                {page > 10 && <button onClick={()=>setPage(1)}>첫 페이지</button>}
+                {page > totalPageCnt && <button onClick={()=>prevPage()}>이전</button>}
 
-      
-        <div className="flex mb-6 gap-x-5 justify-center mx-auto mt-6 items-center">
-            {page > 10 && <button onClick={()=>setPage(1)}>첫 페이지</button>}
-             {page > totalPageCnt && <button onClick={()=>prevPage()}>이전</button>}
-
-            {
-                    Array(endPage - startPage +1 ).fill(null).map((_,i)=>{
-                        const pageNum = i + startPage;
-                        return(
-                                <button key={i} className={`border px-5 py-1 ${page === pageNum ?'bg-black text-white font-bold': 'bg-white text-black'}`} onClick={()=>setPage(pageNum)}>{pageNum}</button>
-                
-                        )
-                    })
-            }
-           
-      
-            {page <= lastPage-totalPageCnt && <button onClick={()=>nextPage()}>다음</button>}
-            
-            {page > 10 && <button onClick={()=>setPage(lastPage)}>마지막 페이지</button>}
-          
-        </div>
+                {
+                        Array(endPage - startPage +1 ).fill(null).map((_,i)=>{
+                            const pageNum = i + startPage;
+                            return(
+                                    <button key={i} className={`border px-5 py-1 ${page === pageNum ?'bg-black text-white font-bold': 'bg-white text-black'}`} onClick={()=>setPage(pageNum)}>{pageNum}</button>
+                    
+                            )
+                        })
+                }
+                {page <= lastPage-totalPageCnt && <button onClick={()=>nextPage()}>다음</button>}
+                {page > 10 && <button onClick={()=>setPage(lastPage)}>마지막 페이지</button>}      
+            </div>
         </>
     )
 }

@@ -47,7 +47,6 @@ export default async function nav() {
                 
                 }
                 </div>
-
             </div>
         </div>
     </>

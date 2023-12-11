@@ -24,12 +24,9 @@ interface formType{
 }
 
 export default function EditComponent() {
-    
-    // console.log(post);
+   
 
-    // 'update 테이블명 set 필드 = 변경값, 필드= 변경값, 필드= 변경값 where id = 변경할 아이디'
-    // ('update musicboard.board1 set title = 변경값, content= 변경값, author= 변경값 where id = ?', [title,content,id])
-
+  
     const params = useParams()
     const [post, setPost]=useState<PostList[]>([])
 
@@ -53,7 +50,6 @@ export default function EditComponent() {
         }
     )
 
-        console.log(formData)
     const changeEvent = (e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{
         setFormData({...formData,[e.target.name] : e.target.value} )
        
@@ -88,7 +84,7 @@ export default function EditComponent() {
 
     return(
         <>
-        <div className='max-w-7xl text-center'>
+            <div className='max-w-7xl text-center'>
                 <h3 className='mt-[80px] text-7xl font-bold'>글수정</h3>
                 <form method="post"  className='w-4/5 p-5 mt-8 mx-auto border h-auto rounded-md' onSubmit={submitEvent
                 }>

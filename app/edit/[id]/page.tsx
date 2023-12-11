@@ -1,8 +1,6 @@
 'use client'
 
 import EditComponent from '@/components/edit';
-// import db from '@/db';
-// import { RowDataPacket } from 'mysql2/promise';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -28,9 +26,6 @@ interface editProps{
 
 export default function Edit(props:editProps){
     
-    
-  
-    // const [results] = await db.query<RowDataPacket[]>('SELECT * FROM board.board1 where id= ?',[props.params.id])
 
     const params = useParams()
     const [post, setPost] = useState<PostList[]>([])
@@ -51,17 +46,7 @@ export default function Edit(props:editProps){
 
     return(
         <>
-           {/* {
-            results.length > 0 
-            ?  */}
-            {/* <EditComponent post={post}/> */}
-        {/* //     : 
-        //     <NotData/>
-            
-        //    }  */}
-        
-        <EditComponent />
-
+            <EditComponent />
         </>
     )
 }
@@ -69,10 +54,10 @@ export default function Edit(props:editProps){
 function NotData(){
     return(
         <>
-        <div className="w-full">  
-            <p className="text-center mt-7">데이터가 존재하지 않습니다</p>
-            <Link className='mx-auto px-2 py-1 border rounded-md' href="/">목록</Link>
-        </div>
+            <div className="w-full">  
+                <p className="text-center mt-7">데이터가 존재하지 않습니다</p>
+                <Link className='mx-auto px-2 py-1 border rounded-md' href="/">목록</Link>
+            </div>
         </>
     )
 }

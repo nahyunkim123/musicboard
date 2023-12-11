@@ -12,7 +12,7 @@ interface formType{
     username:string;
     title:string;
     content:string;
-    url:string
+
 }
 
 interface DataType {
@@ -29,18 +29,21 @@ interface DataType {
 
 export default function Write(){
     const {data: session} = useCustomSession(); 
+
+ 
+    const [selectedUrls, setSelectedUrls] = useState<string>('');
+
     const [formData, setFormData] = useState<formType>(
         {
             userid: session?.user?.email ?? '',
             username: session?.user?.name ?? '',
             nickname:session?.user?.nickname ?? '',
             title:'',
-            content:'',
-            url:''
-
+            content:''
         }
     )
-       
+
+
     const changeEvent = (e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)=>{
         setFormData({...formData,[e.target.name] : e.target.value})
        
@@ -57,17 +60,13 @@ export default function Write(){
          
           const data = response.data.items;
           setResultVideo(data)
-          console.log(data)
+        
        
         } catch (error) {
           console.log(error);
         }
       
       };
-      
-  
-
-
 
     const submitEvent = async (e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
@@ -77,7 +76,7 @@ export default function Write(){
                 headers:{
                     'Content-Type' : 'application/json'
                 },
-                body:JSON.stringify(formData)
+                body: JSON.stringify({...formData,  url:selectedUrls}),
             })
             if(res.ok){
                 const data = await res.json()
@@ -100,11 +99,10 @@ export default function Write(){
 
     return(
         <>
-
             <div className='max-w-7xl text-center mt-[70px]'>
                 <div className='w-4/5  mx-auto mt-6'>
                     <div className='flex items-center gap-x-3'>
-                        <input type="text" className=" border-black border px-2 w-full h-[60px] focus:outline-none" placeholder={`${session && session.user.name}님의 플레이리스트를 추가해보세요!`} value={searchData} onChange={(e)=>{setSearchData(e.target.value)}}/>
+                        <input type="text" className=" border-black border px-2 w-full h-[60px] focus:outline-none" placeholder={`${session && session.user.name}님의 플레이리스트를 추가해보세요!(영상은 하나만 추가할 수 있습니다)`} value={searchData} onChange={(e)=>{setSearchData(e.target.value)}}/>
                         <button onClick={()=>fetchData()} className='w-[60px] h-[60px] bg-[#000] text-white'>찾기</button>
                     </div>
                     <div className='mt-3'>
@@ -113,34 +111,25 @@ export default function Write(){
                                 const decodedTitle = new DOMParser().parseFromString(e.snippet.title, 'text/html').body.textContent;
                                 return(
                                     <div key={i} className='w-full flex border-b gap-x-4 items-center'>
-                                        <Link href={`https://www.youtube.com/watch?v=${e.id.videoId}`}>
                                         <Image src={e.snippet.thumbnails.high.url} width={130} height={100} alt={e.snippet.title}/>
-                                        <div className='basis-3/5'>{decodedTitle}</div></Link>
-                                        <button className='basis-1/5'>+</button>
+                                        <div className='basis-3/5'>{decodedTitle}</div>
+                                        <button className='basis-1/5' onClick={() => setSelectedUrls(e.id.videoId)}>+</button>
                                     </div>
                                 )
                             })
                         }
                     </div>
                 </div>
-                <form method="post" onSubmit={submitEvent
-                } className='w-4/5 p-5 mt-8 mx-auto h-auto'>
-              
-                      
+                <form method="post" onSubmit={submitEvent} className='w-4/5 p-5 mt-8 mx-auto h-auto'>  
                     <input className='w-full pb-3 text-xl border-b focus:outline-none' type="text" name="title" defaultValue={formData.title} placeholder='제목' onChange={changeEvent}/>
-      
-                    <textarea placeholder='내용' className= 'focus:outline-none p-3 w-full h-[300px] mt-4' name="content" defaultValue={formData.content}  onChange={changeEvent}/>
-                    
-                    
-                </form>
-                    <div className="w-full flex h-[60px]  bg-[#111] fixed bottom-0">
-                        <div className='flex h-[40px] justify-between items-center mx-auto'>
-                            <button className="bg-[#FA7070] transition-all text-white px-4 py-2 shadow-md focus:outline-none">
-                            <Link href='/'>취소</Link>
-                            </button>
-                            <button onClick={()=>submitEvent} className=" transition-all text-white px-4 py-2 shadow-md focus:outline-none">업로드</button>
+                    <textarea placeholder='내용' className= 'focus:outline-none p-3 w-full h-[300px] mt-4' name="content" defaultValue={formData.content}  onChange={changeEvent}/>       
+                    <div className="w-full h-[60px]">
+                        <div className='flex h-[40px] justify-around items-center mx-auto'>
+                        <Link href='/' className="inline-block bg-gray-500 text-white px-4 py-2 hover:bg-gray-600 focus:outline-none">취소</Link>
+                            <button className="transition-all px-4 py-2 shadow-md focus:outline-none">업로드</button>
                         </div>
                     </div>
+                </form>
             </div>
         </>
     )

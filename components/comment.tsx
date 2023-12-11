@@ -3,8 +3,6 @@
 import { useCustomSession } from "@/app/sessions"
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import Editcomment from "./editcomment";
-import EditComment from "./editcomment";
 
 
 
@@ -175,7 +173,6 @@ export default function Comment(props : CommentProps) {
                                         {/* <button className="border w-[40px] rounded-md" onClick={()=>{setIsActive(true)}}>수정</button>
                                         <button onClick={()=>deleteComment(e.id)} className="border w-[40px] rounded-md">삭제</button> */}
                                     </div>
-                                    {/* } */}
                                     
                                 </div>
                                 <p className="text-sm text-[gray]">{formatDate}</p>
@@ -186,8 +183,7 @@ export default function Comment(props : CommentProps) {
                         <div className="w-full flex justify-between mt-2">
                             <input name="content" type="text" className="border rounded-md basis-5/6" placeholder='댓글달기' onChange={commentValue}/>
                             <div className="basis-1/6">
-                                <button onClick={()=>cmtSubmit()} className="bg-black text-white rounded-md w-[60px]">올리기</button>
-                                
+                                <button onClick={()=>cmtSubmit()} className="bg-black text-white rounded-md w-[60px]">올리기</button> 
                             </div>
                         </div>
                     </> 

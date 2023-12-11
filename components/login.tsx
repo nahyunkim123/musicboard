@@ -11,10 +11,8 @@ export default function LoginComponent() {
 
    
     return(
-        <>  
-   
+        <>   
             <button onClick={redirectTo}>로그인</button>
-         
         </>
     )
 }

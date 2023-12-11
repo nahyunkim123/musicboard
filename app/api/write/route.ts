@@ -8,7 +8,7 @@ interface PostData {
     username: string;
     title: string;
     content:string;
-
+    url:string;
 }
 
 
@@ -20,7 +20,7 @@ export const POST = async (
         try{
             
 
-            const {userid, username, title, content} : PostData = JSON.parse(await req.text())
+            const {userid, username, title, content, url} : PostData = JSON.parse(await req.text())
 
             if(!username || !title || !content){
                 return NextResponse.json({message:"데이터가 부족합니다."})
@@ -28,7 +28,7 @@ export const POST = async (
 
                
                 const [results] = await db.query(
-                    'insert into musicboard.board1 ( userid, username, title, content) values(?,?,?,?)',[userid, username,title, content]
+                    'insert into musicboard.board1 ( userid, username, title, content, url) values(?,?,?,?,?)',[userid,username,title,content,url]
                   
                 )
                 return NextResponse.json({message:"성공", result:results})

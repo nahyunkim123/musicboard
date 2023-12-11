@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Comment from '@/components/comment'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import EditDelete from './editDelete'
-import Player from '@/components/player'
+import YoutubeVideo from '@/components/youtubevideo'
 
 
 interface userInfo{
@@ -21,19 +21,18 @@ interface propsType{
     results :{
         id:number;
         userid:string;
-        title?:string;
-        content?:string;
+        title:string;
+        content:string;
         username?:string;
-        count?:number;
-        data?:string;
-
-
+        count:number;
+        data:string;
+        url:string;
     }
 }
 
 
 async function GetIp(){
-    // const res = await fetch('http://localhost:3000/api/get-ip');
+    
     const res = await fetch('https://musicboard-12.vercel.app/api/get-ip');
     const data = res.json();
     if(!res.ok){
@@ -62,7 +61,7 @@ export default async function Detail({
     let session = await getServerSession(authOptions) as userInfo
     const [countResult] = await db.query<RowDataPacket[]>('select count (*) as cnt from musicboard.view_log where postid = ? and ip_address = ?',[postId,userIp])
     const totalCnt = countResult[0].cnt;
-    console.log(totalCnt+"개")
+
 
     if(results.length > 0){
         
@@ -78,40 +77,37 @@ export default async function Detail({
 
     return(
     <>
-     
         <div className="w-full mt-8">
-         {
-            results.length > 0 &&
-            
-            <div className="w-4/5 p-7 border rounded-xl mx-auto">
-               
-                    <div className="w-full flex justify-between items-end  pb-3">
-
-                        <p className="text-md">{post?.username}</p>
-                        <p className="text-md">조회수 {post?.count}</p>
-                    
-                    </div>
-                   
-                    <p className="text-3xl border-b">{post?.title}</p> 
-                    <Player/>   
-                    <p className="text-md mt-6 pb-[20px]">{post?.content}</p>
-
-                    <div className="mt-3">
-
-                        
+            {
+                results.length > 0 &&
+                    <div className="w-4/5 p-7 border rounded-xl mx-auto">           
+                        <div className="w-full flex justify-between items-end  pb-3">
+                            <div className="text-md"><span className='font-bold'>{post.username}</span>님의 플레이리스트</div>
+                            <p className="text-md">조회수 {post.count}</p>               
+                        </div>
+                        <p className="text-3xl border-b">{post.title}</p> 
                         {
-                            session ? <Comment id={post?.id}/> 
-                            : <><p className="block border p-4 text-center my-5 rounded-md"><Link href="/login">댓글을 작성하려면 로그인해주세요</Link></p>
-                            </>
+                            post.url &&
+                            <div className='mt-5 w-full'>
+                                <div className='w-4/5 mx-auto'>
+                                    <YoutubeVideo  videoId={post.url}/>
+                                </div>
+                            </div>
                         }
-                    <EditDelete results={post as propsType['results']}/>
+                        <p className="text-md mt-6 pb-[20px]">{post.content}</p>
+                        <div className="mt-10">
+                            {
+                                session ? <Comment id={post.id}/> 
+                                : 
+                                <>
+                                    <p className="block border p-4 text-center my-5 rounded-md"><Link href="/login">댓글을 작성하려면 로그인해주세요</Link></p>
+                                </>
+                            }
+                            <EditDelete results={post as propsType['results']}/>
+                        </div>
                     </div>
-
-                 </div>
             }
-
-
-            </div>
+        </div>
     </>
     )
 }
