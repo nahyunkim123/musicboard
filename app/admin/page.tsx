@@ -1,31 +1,24 @@
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
-import ChartComponent from './chart';
+
+import NewMember from '@/components/admin/chart/newmember';
+import NewPost from '@/components/admin/chart/newpost';
+import TotalCount from '@/components/admin/chart/totalcnt';
 
 
-interface userInfo {
-    user:{
-      name: string;
-      email?:string;
-      image?: string;
-      level?: number;
+
+
+
+export default async function Admin(){
   
-    }
-  }
-
-
-export default async function Admin() {
   
-    const sessions = await getServerSession(authOptions) as userInfo;
-    if(!sessions && sessions || sessions?.user.level !== 10){
-        return(
-            <p>관리자만 접속 가능한 페이지입니다</p>
-        )
-    }
 
-    return(
-        <>
-            <ChartComponent/>        
-        </>
-    )
-};
+  return(
+    <>
+     <TotalCount />
+     <div className="w-full my-5 flex flex-wrap justify-between">
+        <NewMember />
+        <NewPost />
+     </div>
+     
+    </>
+  )
+}

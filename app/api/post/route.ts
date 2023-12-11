@@ -16,8 +16,6 @@ export const GET = async (
 
         try{
             const [results]= await db.query<RowDataPacket[]>('select * from musicboard.board1 order by date DESC limit ?  offset ? ',[perPage,offset]);
-
-            console.log(results)
             const [countResult] = await db.query<RowDataPacket[]>
             ('select count(*) as cnt from musicboard.board1')
             const totalCnt = countResult[0].cnt

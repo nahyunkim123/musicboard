@@ -33,7 +33,7 @@ interface propsType{
 
 async function GetIp(){
     
-    const res = await fetch('https://musicboard-12.vercel.app/api/get-ip');
+    const res = await fetch('https://musicboard-12-nahyunkim123.vercel.app/api/get-ip');
     const data = res.json();
     if(!res.ok){
         alert("에러가 발생하였습니다")
