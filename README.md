@@ -1,14 +1,19 @@
 
 # 🎧musicboard
+ ![Main](https://github.com/nahyunkim123/musicboard/assets/142788257/c2def617-ec7b-4f4a-940f-8f552aba6930)
+  <br>
   다양한 음악 취향을 공유하고 싶어하는 사용자들을 위해 제작한 웹사이트입니다!
 
+
 ## 메인
+
  **회원가입 / 로그인**  
  **글 작성 / 수정 / 삭제**  
  **관리자 페이지**  
- 
+
+
 ## 주요 기능
-<img width="640" alt="유튜브" src="https://github.com/nahyunkim123/musicboard/assets/142788257/d7ca6a6f-57f0-4b8e-a52c-22d8607aa81d">
+<img width="640" alt="스크린샷 2023-12-12 오후 5 44 58" src="https://github.com/nahyunkim123/musicboard/assets/142788257/dafb97ca-e9fb-4e5e-b9b2-98eacb32ecc8">
  <br>
  유튜브 API를 활용하여 영상 업로드가 가능합니다
   <br>
