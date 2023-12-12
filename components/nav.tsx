@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Logo from '@/public/images/logo.png';
 import LoginComponent from './login';
 import Link from 'next/dist/client/link';
 import { getServerSession } from 'next-auth';
@@ -23,13 +22,10 @@ export default async function nav() {
     <>
       <div className="flex justify-between h-[60px] px-4 md:px-8 items-center">
         <Link href="/">
-          <Image
-            className="w-[180px] object-contain h-[40px]"
-            src={Logo}
-            width={200}
-            height={30}
-            alt="logo"
-          />
+          <div className="flex w-[130px] justify-between items-center">
+            <div className="w-[30px] h-[30px] bg-slate-50"></div>
+            <p className="relative logo">Music Board</p>
+          </div>
         </Link>
         <div className="basis-1/3">
           <div className=" flex gap-x-3 justify-center items-center">

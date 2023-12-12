@@ -108,7 +108,7 @@ export default function Register() {
                   </p>
                   <input
                     type="text"
-                    className="px-2 mt-0 border w-full focus:outline-gray-400 h-[50px] mx-auto"
+                    className="px-2 mt-0 border w-full text-black focus:outline-gray-400 h-[50px] mx-auto"
                     placeholder="music@example.com"
                     name="email"
                     required
@@ -120,7 +120,7 @@ export default function Register() {
                 </p>
                 <input
                   type="password"
-                  className=" mt-3 px-2 border w-full focus:outline-gray-400 h-[50px] mx-auto"
+                  className=" mt-3 px-2 border text-black w-full focus:outline-gray-400 h-[50px] mx-auto"
                   placeholder="비밀번호를 입력해주세요"
                   name="password"
                   required
@@ -132,7 +132,7 @@ export default function Register() {
                 </p>
                 <input
                   type="password"
-                  className="mt-3 px-2 border w-full focus:outline-gray-400 h-[50px] mx-auto"
+                  className="mt-3 px-2 border w-full text-black focus:outline-gray-400 h-[50px] mx-auto"
                   placeholder="비밀번호를 한번 더 입력해주세요"
                   name="passwordchk"
                   value={pwChk}
@@ -145,8 +145,8 @@ export default function Register() {
                 </p>
                 <input
                   type="text"
-                  className="  mt-3 px-2 border w-full focus:outline-gray-400 h-[50px] mx-auto"
-                  placeholder=" 이름을 입력해주세요"
+                  className="mt-3 px-2 border w-full text-black focus:outline-gray-400 h-[50px] mx-auto"
+                  placeholder="이름을 입력해주세요"
                   name="name"
                   required
                   onChange={changeEvent}
@@ -154,7 +154,7 @@ export default function Register() {
                 <p className="mt-5">닉네임</p>
                 <input
                   type="text"
-                  className="  mt-3 px-2 border w-full focus:outline-gray-400 h-[50px] mx-auto"
+                  className="text-black mt-3 px-2 border w-full focus:outline-gray-400 h-[50px] mx-auto"
                   placeholder=" 닉네임을 입력해주세요"
                   name="nickname"
                   required

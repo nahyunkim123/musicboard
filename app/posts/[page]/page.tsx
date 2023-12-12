@@ -46,21 +46,20 @@ export default async function PostsList({ params }: PropType) {
     <>
       <div className="mx-auto max-w-7xl p-6">
         <PopularComponent />
-        <div className="flex justify-around items-center mb-6 relative">
-          <h1 className="text-[40px] font-semibold mt-5">전체</h1>
-
+        <div className="w-4/5 mx-auto flex items-end justify-between relative mt-[70px]">
+          <h1 className="text-[40px] font-semibold">전체</h1>
           {sessions && (
             <Link
               href="/write"
-              className="bg-[#000] absolute -bottom-[15px] transition-all mt-6 text-white px-4 py-2  right-3"
+              className=" transition-all border px-3 py-2 hover:bg-slate-200 hover:text-black"
             >
-              글쓰기
+              내 플레이리스트 공유하러 가기!
             </Link>
           )}
         </div>
       </div>
 
-      <div className="w-4/5 p-6 mx-auto gap-x-5 flex-wrap flex mt-3 justify-start">
+      <div className="w-4/5 p-6 mx-auto gap-x-5 flex-wrap flex justify-start">
         {results &&
           results.map((e, i) => {
             return (
