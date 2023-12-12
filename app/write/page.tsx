@@ -89,7 +89,7 @@ export default function Write() {
           <div className="flex items-center gap-x-3">
             <input
               type="text"
-              className=" border-black border px-2 w-full h-[60px] focus:outline-none"
+              className="border-[#eee] border bg-[#191919] px-2 w-full h-[60px] focus:outline-none"
               placeholder={`${
                 session && session.user.name
               }님의 플레이리스트를 추가해보세요!(영상은 하나만 추가할 수 있습니다)`}
@@ -98,7 +98,10 @@ export default function Write() {
                 setSearchData(e.target.value);
               }}
             />
-            <button onClick={() => fetchData()} className="w-[60px] h-[60px] bg-[#000] text-white">
+            <button
+              onClick={() => fetchData()}
+              className="w-[60px] h-[60px] border border-[#eee] bg-[#000] text-white"
+            >
               찾기
             </button>
           </div>
@@ -126,7 +129,7 @@ export default function Write() {
         </div>
         <form method="post" onSubmit={submitEvent} className="w-4/5 p-5 mt-8 mx-auto h-auto">
           <input
-            className="w-full pb-3 text-xl border-b focus:outline-none"
+            className="w-full pb-3 text-xl border-b bg-[#191919] focus:outline-none"
             type="text"
             name="title"
             defaultValue={formData.title}
@@ -135,13 +138,13 @@ export default function Write() {
           />
           <textarea
             placeholder="내용"
-            className="focus:outline-none p-3 w-full h-[300px] mt-4"
+            className="focus:outline-none p-3 w-full h-[300px] mt-4 bg-[#191919]"
             name="content"
             defaultValue={formData.content}
             onChange={changeEvent}
           />
           <div className="w-full h-[60px]">
-            <div className="flex h-[40px] justify-around items-center mx-auto">
+            <div className="flex h-[40px] justify-between items-center mx-auto">
               <Link
                 href="/"
                 className="inline-block bg-gray-500 text-white px-4 py-2 hover:bg-gray-600 focus:outline-none"
