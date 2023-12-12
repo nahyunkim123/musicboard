@@ -8,7 +8,7 @@ const nextConfig = {
     YOUTUBE_KEY: process.env.YOUTUBE_KEY,
   },
   images: {
-    domains: ['i.ytimg.com', 'yt3.ggpht.com','img.youtube.com'],
+    domains: ['i.ytimg.com', 'yt3.ggpht.com', 'img.youtube.com'],
   },
 };
 
