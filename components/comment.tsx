@@ -1,5 +1,4 @@
 'use client';
-
 import { useCustomSession } from '@/app/sessions';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -31,8 +30,8 @@ export default function Comment(props: CommentProps) {
 
   const [formData, setFormData] = useState<formType>({
     parentid: id,
-    userid: session?.user?.email ?? '',
-    username: session?.user?.name ?? '',
+    userid: session?.user.email ?? '',
+    username: session?.user.name ?? '',
     content: '',
   });
   const [isActive, setIsActive] = useState<boolean>(false);

@@ -5,7 +5,8 @@ import Link from 'next/link';
 import Comment from '@/components/comment';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import EditDelete from './editDelete';
-import YoutubeVideo from '@/components/youtubevideo';
+import dynamic from 'next/dynamic';
+const YoutubeVideo = dynamic(() => import('@/components/youtubevideo'));
 
 interface userInfo {
   user: {

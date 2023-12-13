@@ -11,7 +11,7 @@ interface memberInfo {
 }
 
 async function getData() {
-  const res = await fetch('http://localhost:3000/api/admin', {
+  const res = await fetch('http://localhost:3001/api/admin', {
     cache: 'no-cache',
     method: 'POST',
     headers: {

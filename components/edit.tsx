@@ -77,14 +77,14 @@ export default function EditComponent() {
           <div className="flex items-center">
             <h4 className="basis-1/6 text-center">닉네임 </h4>
             <div className="py-2 basis-1/6 text-gray-700 text-sm mb-2 rounded-xl">
-              {post && post[0]?.author}
+              {post && post[0].author}
             </div>
           </div>
           <div className="flex items-center">
             <h4 className="basis-1/6 text-center">제목</h4>
             <input
               className="py-2 px-2 basis-5/6 border rounded-xl focus:outline-[#999]"
-              defaultValue={post && post[0]?.title}
+              defaultValue={post && post[0].title}
               type="text"
               name="title"
               onChange={changeEvent}
@@ -93,7 +93,7 @@ export default function EditComponent() {
           <textarea
             className="border p-3 w-full h-[600px] mt-4 rounded-xl focus:outline-[#999]"
             name="content"
-            defaultValue={post && post[0]?.content}
+            defaultValue={post && post[0].content}
             onChange={changeEvent}
           />
 
