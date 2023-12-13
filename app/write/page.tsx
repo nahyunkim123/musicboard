@@ -29,9 +29,9 @@ export default function Write() {
   const [selectedUrls, setSelectedUrls] = useState<string>('');
 
   const [formData, setFormData] = useState<formType>({
-    userid: session?.user?.email ?? '',
-    username: session?.user?.name ?? '',
-    nickname: session?.user?.nickname ?? '',
+    userid: session?.user.email ?? '',
+    username: session?.user.name ?? '',
+    nickname: session?.user.nickname ?? '',
     title: '',
     content: '',
   });
