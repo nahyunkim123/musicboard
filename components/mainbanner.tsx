@@ -8,7 +8,7 @@ export default function MainBanner() {
         src={Mainbanner}
         width={0}
         height={0}
-        style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         alt="mainbanner"
         priority
       />
